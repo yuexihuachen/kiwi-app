@@ -4,21 +4,26 @@ const debug = require("debug")('kiwi');
 
 const router = new Router()
 
-const routePaths = []
-const addRoutePath = (path) => {
-    if (!routePaths.includes(path)) {
-        routePaths.push(path)
-    }
-}
-
+/**
+ * 
+ * @param {Array} routerConfig 
+ * @param {String} 路由匹配
+ * @param {String} 请求方法
+ * @param {String} 控制器
+ * @returns 
+ */
 module.exports = (routerConfig) => {
     if (routerConfig && routerConfig.length) {
         routerConfig.forEach(routerItem => {
             const { method = 'get', match, controller } = routerItem
+            /**
+             *     router.get('/:category/:title', function (ctx) {
+             *         ctx.status = 204;
+             *      });
+             */
             const args = [match];
-            addRoutePath(match);
             args.push((ctx, next) => {
-                debug(`current path: ${match} URL: ${ctx.url}`);
+                debug(`route match: ${match}, route URL: ${ctx.url}`);
                 ctx.routerItem = ctx.routerItem || []
                 ctx.routerItem.push({
                     type: 'koa:route',
@@ -26,7 +31,9 @@ module.exports = (routerConfig) => {
                         controller
                     }
                 })
-                debug(`result: ${ctx.routerItem}`)
+                debug(`result: ${ctx.routerItem}`);
+
+                // 洋葱路由转呀转 1
                 return next()
             })
 
@@ -37,5 +44,3 @@ module.exports = (routerConfig) => {
 
     return koaCompose([router.routes(),router.allowedMethods()])
 }
-
-module.exports.routePaths = routePaths
