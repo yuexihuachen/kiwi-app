@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "node server",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start",
+    "dev": "node  --inspect src/index.js"
+  },
+  "keywords": [
+    "node",
+    "framework"
+  ],
+  "author": "longwang",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^12.0.1",
+    "debug": "^4.3.4",
+    "html-minifier": "^4.0.0",
+    "koa": "^2.14.2",
+    "koa-compose": "^4.1.0",
+    "nunjucks": "^3.2.4"
+  }
+}
