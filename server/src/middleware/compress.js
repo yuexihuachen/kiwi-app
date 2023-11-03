@@ -1,11 +1,11 @@
-import compress from 'koa-compress'
+const compress = require('koa-compress');
 /**
  * 针对网络传输的数据进行压缩来提高传输速度
  * 针对html css js json文件做gzip压缩
  * 超过2k就压缩
  */
 
-export default () => {
+module.exports = () => {
   return compress({
     filter (content_type) {
       const gaipFile = ['text/html','text/css','application/javascript','application/json']

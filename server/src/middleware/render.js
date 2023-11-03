@@ -36,7 +36,8 @@ const getController = (rootControllerPath, controllerPath) => {
 
 const defaultMinifyConfig = {
     removeComments: true,
-    collapseWhitespace: true
+    collapseWhitespace: true,
+    minifyCSS: true
 }
 
 module.exports = (options = {}) => {
