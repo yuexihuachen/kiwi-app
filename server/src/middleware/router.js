@@ -22,7 +22,7 @@ module.exports = (routerConfig) => {
              *      });
              */
             const args = [match];
-            args.push((ctx, next) => {
+            args.push(async (ctx, next) => {
                 debug(`route match: ${match}, route URL: ${ctx.url}`);
                 ctx.routerItem = ctx.routerItem || []
                 ctx.routerItem.push({
@@ -34,7 +34,7 @@ module.exports = (routerConfig) => {
                 debug(`result: ${ctx.routerItem}`);
 
                 // 洋葱路由转呀转 1
-                return next()
+                await next()
             })
 
 

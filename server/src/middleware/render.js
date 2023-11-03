@@ -1,10 +1,11 @@
 const minify = require('html-minifier').minify;
 const nunjucks = require("nunjucks");
 const path = require("path");
-const { reduce } = require('../routes');
+
 
 const ext = '.html';
 const controllerCache = new Map()
+// 获取到控制器函数
 const findController = (rootControllerPath, controllerPath) => {
     return new Promise((resolve, reject) => {
         const controllerArray = controllerPath.split('.');
@@ -25,11 +26,17 @@ const findController = (rootControllerPath, controllerPath) => {
         }
     })
 }
+
 const getController = (rootControllerPath, controllerPath) => {
     if (controllerCache.has(controllerPath)) {
         return Promise.resolve(controllerCache.get(controllerPath))
     }
     return findController(rootControllerPath, controllerPath)
+}
+
+const defaultMinifyConfig = {
+    removeComments: true,
+    collapseWhitespace: true
 }
 
 module.exports = (options = {}) => {
@@ -38,8 +45,9 @@ module.exports = (options = {}) => {
         viewRootPath, 
         renderConfig, 
         envConfig, 
-        minifyConfig
+        minifyConfig = defaultMinifyConfig
     } = options
+    
     // Environment 类用来管理模板
     // 实例化 Environment 时传入两个参数，一组 loaders 和配置项 opts
     const defaultViews = (viewRootPath, renderConfig, envConfig = {}) => {
@@ -68,13 +76,13 @@ module.exports = (options = {}) => {
 
     const renderView = function(viewPath) {
         return render(path.join(this.state.controller, viewPath), this.state.scope).then(html => {
-            this.body = html
+            this.body = minify(html, minifyConfig)
             this.state.scope = null
         })
     }
 
     // 洋葱路由转呀转 2
-    return (ctx, next) => {
+    return async (ctx, next) => {
         //作为该属性的 getter 函数。函数返回值将被用作属性的值。
         Object.defineProperties(ctx, {
             render: {
@@ -94,19 +102,18 @@ module.exports = (options = {}) => {
             }
         })
         // 洋葱路由转呀转 3
-        return next().then(() => {
-            if (ctx.routerItem && ctx.routerItem.length) {
-                const controllerPath = ctx.routerItem[0].data.controller
-                return getController(rootControllerPath, controllerPath).then(data => {
-                    const {
-                        action,
-                        controllerName
-                    } = data;
-                    ctx.state.controller = controllerName
-                    // 控制器函数
-                    return action.bind(ctx)(ctx.state.scope)
-                })
-            }
-        })
+        await next()
+        if (ctx.routerItem && ctx.routerItem.length) {
+            const controllerPath = ctx.routerItem[0].data.controller
+            return getController(rootControllerPath, controllerPath).then(data => {
+                const {
+                    action,
+                    controllerName
+                } = data;
+                ctx.state.controller = controllerName
+                // 控制器函数
+                return action.bind(ctx)(ctx.state.scope)
+            })
+        }
     }
 }
