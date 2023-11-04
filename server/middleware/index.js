@@ -5,9 +5,13 @@ const init = require("./init")
 const koaBody = require("./bodyParser")
 const compress = require("./compress")
 const helmet = require("./helmet")
+const log = require("./log")
+const renderJson = require("./renderJson")
 
 module.exports = (app) => {
     app.use(init());
+
+    app.use(log())
 
     app.use(helmet());
 
@@ -15,7 +19,7 @@ module.exports = (app) => {
 
     app.use(compress());
 
-    
+    app.use(renderJson())
 
     app.use(koaRender({
         rootControllerPath: path.resolve(__dirname, "../controllers"),

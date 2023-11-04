@@ -1,0 +1,21 @@
+{
+  "name": "kiwi-app",
+  "version": "1.0.0",
+  "description": "kiwi-server-client-framework",
+  "main": "index.js",
+  "directories": {
+  },
+  "scripts": {
+    "test": "npm start",
+    "start": "node ./server",
+    "dev": "kiwi-scripts dev",
+    "build": "kiwi-scripts build",
+    "clean": "rm -rf node_modules client/node_modules server/node_modules",
+    "lint": "kiwi-scripts lint"
+  },
+  "keywords": [
+    "kiwi"
+  ],
+  "author": "longwang",
+  "license": "ISC"
+}

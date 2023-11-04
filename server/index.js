@@ -1,11 +1,11 @@
 const Koa = require('koa');
-
+const {
+    PORT
+} = require("./config");
 const middlewares = require("./middleware/index")
 
 const app = new Koa();
 
-
 middlewares(app)
 
-
-app.listen(3000);
+app.listen(PORT);

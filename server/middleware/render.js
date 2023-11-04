@@ -11,7 +11,8 @@ const findController = (rootControllerPath, controllerPath) => {
         const controllerArray = controllerPath.split('.');
         const controllerName = controllerArray[0]
         const controllerFilePath = path.join(rootControllerPath, controllerName)
-        const controller = require(controllerFilePath)
+        const ControllerClass = require(controllerFilePath)
+        const controller = new ControllerClass();
         const action = controller[controllerArray[1]]
         let data = {}
         if (action) {
@@ -91,16 +92,6 @@ module.exports = (options = {}) => {
                     return renderView.bind(ctx)
                 }
             },
-            renderJson: {
-                get() {
-                    return JSON.stringify(ctx.state.scope)
-                }
-            },
-            renderJSON: {
-                get() {
-                    return JSON.stringify(ctx.state.scope)
-                }
-            }
         })
         // 洋葱路由转呀转 3
         await next()
