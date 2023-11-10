@@ -8,7 +8,7 @@
     "test": "npm start",
     "start": "node ./server",
     "dev": "kiwi-scripts dev",
-    "build": "kiwi-scripts build",
+    "build": "webpack --config ./build/webpackconfig.dev.js --progress",
     "clean": "rm -rf node_modules client/node_modules server/node_modules",
     "lint": "kiwi-scripts lint"
   },

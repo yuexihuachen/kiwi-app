@@ -32,6 +32,6 @@
     "webpack-manifest-plugin": "^5.0.0"
   },
   "scripts": {
-    "build": "webpack --config ./build/webpackconfig.dev.js --progress"
+    
   }
 }
