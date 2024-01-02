@@ -1,11 +1,11 @@
 import React, {lazy} from 'react';
-import { useRoutes } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Counter from './features/counter/Counter'
 import './app.scss';
 
-const Counter = lazy(() => import('./features/counter/Counter'))
 
 function App() {
-  const routes = useRoutes([
+  const router = createBrowserRouter([
     {
       path: "/",
       element: <Counter />
@@ -17,13 +17,10 @@ function App() {
     </p>
     }
   ])
+
   return (
     <div className="App">
-      <header className="App-header">
-        {
-          routes
-        }
-      </header>
+      <RouterProvider router={router} />
     </div>
   );
 }
