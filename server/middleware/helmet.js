@@ -10,6 +10,7 @@ module.exports = () => {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
         "img-src": ["'self'", "cdn.jsdelivr.net"],
+        "script-src": "'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* http://*.mango.com:* ",
       },
     },
   })

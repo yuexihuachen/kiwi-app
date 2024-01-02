@@ -11,7 +11,7 @@ import {
 } from './counterSlice';
 import './counter.scss';
 
-export function Counter() {
+export default function Counter() {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
