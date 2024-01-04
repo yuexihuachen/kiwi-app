@@ -1,21 +1,32 @@
 import React, { lazy } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
 import './App.css';
 
 const Home = lazy(() => import('./pages/home/Home'))
 const Counter = lazy(() => import("./features/counter/Counter"))
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Counter />,
+  },
+  {
+    path: "home1",
+    element: <Home />,
+  },
+]);
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <React.Suspense fallback={<>...</>}>
-          <Routes>
-            <Route path="/" element={<Counter />} />
-            <Route path="home1" element={<Home />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
+          <RouterProvider router={router} />
         </React.Suspense>
 
       </header>

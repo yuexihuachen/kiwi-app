@@ -8,7 +8,7 @@ import {
   incrementIfOdd,
   selectCount,
 } from './counterSlice';
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from './Counter.module.css';
 
 export default function Counter() {
@@ -69,7 +69,6 @@ export default function Counter() {
         <button onClick={toHome}>
           home page
         </button>
-        <Link to="home1">About Us</Link>
       </div>
     </div>
   );
