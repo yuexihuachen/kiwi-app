@@ -18,8 +18,11 @@
   "author": "longwang",
   "license": "ISC",
   "dependencies": {
+    "fs-extra": "^11.2.0",
+    "lodash": "^4.17.21",
     "mangoo-scripts": "^1.1.2",
     "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-config-utils": "^2.3.1"
   }
 }

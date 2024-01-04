@@ -14,6 +14,6 @@ module.exports = () => {
         "default-src": "'self' http://localhost:* https://*.mango.com 'unsafe-inline'",
         "connect-src": "'self' 'unsafe-inline' 'unsafe-eval' ws://localhost:* ws://*.mango.com:* ",
       },
-    },
+    }
   })
 }
