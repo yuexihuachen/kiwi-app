@@ -8,6 +8,7 @@ import {
   incrementIfOdd,
   selectCount,
 } from './counterSlice';
+import { useNavigate,Link } from "react-router-dom";
 import styles from './Counter.module.css';
 
 export default function Counter() {
@@ -16,7 +17,11 @@ export default function Counter() {
   const [incrementAmount, setIncrementAmount] = useState('2');
 
   const incrementValue = Number(incrementAmount) || 0;
+  const navigate = useNavigate()
 
+  const toHome = () => {
+    navigate('/home1')
+  }
   return (
     <div>
       <div className={styles.row}>
@@ -61,6 +66,10 @@ export default function Counter() {
         >
           Add If Odd
         </button>
+        <button onClick={toHome}>
+          home page
+        </button>
+        <Link to="home1">About Us</Link>
       </div>
     </div>
   );
