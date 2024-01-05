@@ -7,6 +7,10 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const debug = require('debug')('kiwi-scripts:config:webpack')
 // Webpack 构建完成后执行的任务
 const PostCompile = require('post-compile-webpack-plugin')
+ //['production', 'development'],
+const nodeEnv = process.env.NODE_ENV || 'development'
+
+const clientPort =  process.env.CLIENT_PORT || 8080
 
 const rootDir = path.join(__dirname, 'client')
 
@@ -60,7 +64,11 @@ const configFn = () => {
   const styleLoader = {
     loader: require.resolve('style-loader'),
   }
-  const publicPath = 'http://localhost:7975/client/'
+  let publicPath = `http://localhost:${clientPort}/`;
+  console.log(nodeEnv)
+  if (Object.is(nodeEnv, 'production')) {
+    publicPath = '/js/client/'
+  }
   
   const config = {
     context: fromRoot('src'),
@@ -192,7 +200,7 @@ const configFn = () => {
       //在打包构建中输出当前的进度和简述
       new webpack.ProgressPlugin(),
       new PostCompile(() => {
-        console.log('Your app is running at http://localhost:3000')
+        console.log('Your app is running at http://localhost:8080')
       })
     ],
     performance: {
@@ -228,7 +236,7 @@ const configFn = () => {
         '.mango.com',
         '.kiwiinc.com',
       ],
-      port: process.env.CLIENT_PORT || 7975,
+      port: process.env.CLIENT_PORT || 8080,
     },
   }
   debug(config)

@@ -1,5 +1,5 @@
 function getEnv(env = {}) {
-    return Object.keys(process.env)
+    const processEnv = Object.keys(process.env)
         .filter((key) => process.env[key] !== undefined)
         .reduce(
             (envCopy, key) => {
@@ -8,6 +8,8 @@ function getEnv(env = {}) {
             },
             env,
         )
+    return processEnv
+
 }
 
 module.exports = {

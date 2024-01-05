@@ -1,11 +1,11 @@
-const Koa = require('koa');
-const {
-    PORT
-} = require("./config");
-const middlewares = require("./middleware/index")
 
-const app = new Koa();
+const nodeEnv = process.env.NODE_ENV
+// ['production', 'development'],
+let app = require("./src/index");
+const port = process.env.PORT || 3000
 
-middlewares(app)
+if (Object.is(nodeEnv, 'production')) {
+    app = require("./dist/index");
+}
 
-app.listen(PORT);
+app.listen(port)

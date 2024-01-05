@@ -6,11 +6,11 @@
   "directories": {},
   "scripts": {
     "test": "npm start",
-    "build": "mangoo-scripts build",
-    "dev": "mangoo-scripts dev",
-    "setup": "mangoo-scripts setup",
-    "clean": "mangoo-scripts clean",
-    "start": "mangoo-scripts start"
+    "build": "haidong-scripts build",
+    "dev": "haidong-scripts dev",
+    "setup": "haidong-scripts setup",
+    "clean": "haidong-scripts clean",
+    "start": "haidong-scripts start"
   },
   "keywords": [
     "kiwi"
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^11.2.0",
+    "haidong-scripts": "^1.1.0",
     "lodash": "^4.17.21",
     "mangoo-scripts": "^1.1.2",
     "webpack": "^5.89.0",
